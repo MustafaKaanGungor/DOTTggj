@@ -12,9 +12,17 @@ public class Player : MonoBehaviour
     [SerializeField] private float bubbleSpendPerSecond;
     private float bubbleTimer;
     #endregion
+    private Rigidbody2D playerRb;
+    [SerializeField] private float moveSpeed = 10;
+    private int bubbleAirCurrent = 100;
+    private int bubbleAirmax = 100;
+    private bool isDashing = false;
+
     private void Awake() {
         Instance = this;
+        playerRb = GetComponent<Rigidbody2D>();
     }
+
     void Start()
     {
         bubbleAmount = bubbleAmountAtStart;
@@ -25,7 +33,7 @@ public class Player : MonoBehaviour
     private void PlayerOnDash(object sender, EventArgs e)
     {
         //oyuncu dash atıyor
-        Debug.Log("heyooo");
+        
     }
 
     private void PlayerOnAttack(object sender, EventArgs e)
@@ -33,6 +41,8 @@ public class Player : MonoBehaviour
         //oyuncu saldırıyor
         Debug.Log("heyo");
         bubbleAmount -= bubbleSpendPerAttack;
+        //Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y), new Vector2(5,5), transform.right, )
+        
     }
 
     void Update()
@@ -44,8 +54,24 @@ public class Player : MonoBehaviour
     }
 
     private void Movement() {
-       
-        //hareket
+        Vector2 inputVector = GameInput.Instance.GetMovementVector();
+        playerRb.MovePosition(new Vector2(transform.position.x, transform.position.y) + inputVector * Time.deltaTime * moveSpeed);
+    }
+
+    public int GetBubbleAirCurrent() {
+        return bubbleAirCurrent;
+    }
+
+    public void DamageBubbleAir(int damage) {
+        if(!isDashing) {
+            bubbleAirCurrent -= damage;
+            Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirmax);
+        }
+    }
+
+    public void HealBubbleAir(int healAmount) {
+        bubbleAirCurrent += healAmount;
+        Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirmax);
     }
     //Decrease the bubble amount per second
     private void DecreaseBubblePerSecond()

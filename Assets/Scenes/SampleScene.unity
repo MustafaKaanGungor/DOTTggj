@@ -373,6 +373,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5505535412878310007, guid: 94541ffb4bcb17e47889d9af88f4cc41, type: 3}
   m_PrefabInstance: {fileID: 1905265431195687498}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &121918003 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7767673310707685345, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
+  m_PrefabInstance: {fileID: 1058873332}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &127266734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1345,6 +1350,7 @@ RectTransform:
   - {fileID: 1788765126}
   - {fileID: 295618429}
   - {fileID: 130973710}
+  - {fileID: 295618429}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1369,6 +1375,11 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: f23ef7971948b1e4bb240ab9f4098623, type: 2}
+--- !u!1 &737311041 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2820214820402435472, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
+  m_PrefabInstance: {fileID: 1058873332}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &776765892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1996,7 +2007,7 @@ PrefabInstance:
     - target: {fileID: 2252256875234500534, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
       propertyPath: 'tentacleLong.Array.data[0]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 121918003}
     - target: {fileID: 2252256875234500534, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
       propertyPath: 'tentacleLong.Array.data[1]'
       value: 
@@ -2004,7 +2015,7 @@ PrefabInstance:
     - target: {fileID: 2252256875234500534, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
       propertyPath: 'tentacleLong.Array.data[2]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 737311041}
     - target: {fileID: 2252256875234500534, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
       propertyPath: 'tentacleLong.Array.data[3]'
       value: 

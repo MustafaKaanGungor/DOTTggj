@@ -20,8 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = 1f;
     [SerializeField] private float moveSpeed = 10;
-    private int bubbleAirCurrent = 100;
-    private int bubbleAirmax = 100;
+    private Rigidbody2D playerRb;
     [SerializeField] private PlayerVisuals playerVisuals;
 
     [SerializeField] public Vector2 playerPos;
@@ -69,7 +68,7 @@ public class Player : MonoBehaviour
     }
 
     private void Movement() {
-        Vector2 inputVector = GameInput.Instance.GetMovementVector();
+        Vector2 inputVector = GameInput.Instance.GetMovementVector().normalized;
         playerRb.MovePosition(new Vector2(transform.position.x, transform.position.y) + inputVector * Time.deltaTime * moveSpeed);
     }
 
@@ -80,7 +79,7 @@ public class Player : MonoBehaviour
     public void DamageBubbleAir(float damage) {
         if (!isDashing) {
             bubbleAirCurrent -= damage;
-            Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
+            bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
             if(bubbleAirCurrent <= 0) {
                 isDead = true;
                 OnPlayerDeath?.Invoke(this, EventArgs.Empty);
@@ -90,7 +89,7 @@ public class Player : MonoBehaviour
 
     public void HealBubbleAir(float healAmount) {
         bubbleAirCurrent += healAmount;
-        Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
+        bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
     }
 
     private void DecreaseBubblePerSecond()

@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public static Player Instance { get; private set; }
 
     public event EventHandler OnPlayerDeath;
+    public event EventHandler OnPlayerHealthUpdated;
 
     [Header("Bubble Air")]
     public float bubbleAirCurrent;
@@ -55,7 +56,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         DecreaseBubblePerSecond();
-        SetPlayerHitBox();
+        //SetPlayerHitBox();
     }
     void FixedUpdate()
     {
@@ -74,12 +75,13 @@ public class Player : MonoBehaviour
         return (Vector2)transform.position;
     }
 
-    public float GetBubbleAirCurrent() {
-        return bubbleAirCurrent;
+    public float GetBubbleAirPercentage() {
+        return bubbleAirCurrent / bubbleAirMax;
     }
 
     public void DamageBubbleAir(float damage) {
         if (!isDashing) {
+            OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
             bubbleAirCurrent -= damage;
             bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
             if(bubbleAirCurrent <= 0) {
@@ -90,6 +92,7 @@ public class Player : MonoBehaviour
     }
 
     public void HealBubbleAir(float healAmount) {
+        OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
         bubbleAirCurrent += healAmount;
         bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
     }
@@ -113,8 +116,6 @@ public class Player : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
-
-        StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(0.2f, 0.2f));
 
         // Başlangıçta dash yönünü belirle
         Vector2 dashDirection = GameInput.Instance.GetMovementVector().normalized;

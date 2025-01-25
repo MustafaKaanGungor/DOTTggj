@@ -22,10 +22,13 @@ public class Boss : MonoBehaviour
 
     private List<GameObject> tentaclePool = new List<GameObject>();
 
+    [SerializeField] public GameObject playerPos;
+    
     void Start()
     {
 
         TentaclePooling(20);
+        LineAttack(new Vector2(playerPos.transform.position.x,playerPos.transform.position.y));
     }
 
     private void LineAttack(Vector2 targetPos)

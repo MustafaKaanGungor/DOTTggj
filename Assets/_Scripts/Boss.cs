@@ -28,6 +28,9 @@ public class Boss : MonoBehaviour
 
     [SerializeField] private float bossHealthCurrent;
     [SerializeField] private float bossHealthMax;
+
+    private float attackTimer;
+    [SerializeField] private float attackInterval;
     
     void Start()
     {
@@ -36,15 +39,17 @@ public class Boss : MonoBehaviour
 
     void Update()
     {
-        // Test etmek için eklenmiştir
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            RotateTentacleAttack();
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            BottomUpTentacleAttack();
-        }
+        attackTimer += Time.deltaTime;
+        if(attackTimer >= attackInterval) {
+            attackTimer = 0;
+            int select = Random.Range(0,2);
+            if(select == 0) {
+                RotateTentacleAttack();
+            } else {
+                BottomUpTentacleAttack();
+            }
+        } 
+        
         SpawnLoop();
     }
 

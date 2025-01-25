@@ -8,27 +8,24 @@ public class Player : MonoBehaviour
     public static Player Instance { get; private set; }
 
     public event EventHandler OnPlayerDeath;
-    public event EventHandler OnPlayerHealthUpdated;
 
-    [Header("Bubble Air")]
+    #region Bubble System References
+    [Header("BubbleAmount References")]
     public float bubbleAirCurrent;
     public float bubbleAirMax = 100;
     [SerializeField] private float bubbleSpendPerAttack;
     [SerializeField] private float bubbleSpendPerSecond;
     private float bubbleTimer;
-
-    [Header("Movement")]
-    [SerializeField] private float moveSpeed = 10;
-
+    private CircleCollider2D playerCollider;
+    #endregion
     [SerializeField] private float dashingPower = 200f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = 1f;
-
-    [Header("Components")]
+    [SerializeField] private float moveSpeed = 10;
     private Rigidbody2D playerRb;
-    private CircleCollider2D playerCollider;
     [SerializeField] private PlayerVisuals playerVisuals;
 
+    [SerializeField] public Vector2 playerPos;
     private bool isDashing = false;
     private bool canDash = true;
     private bool isDead = false;
@@ -72,17 +69,12 @@ public class Player : MonoBehaviour
         playerRb.MovePosition(new Vector2(transform.position.x, transform.position.y) + inputVector * Time.deltaTime * moveSpeed);
     }
 
-    public Vector2 GetPlayerPositionVector() {
-        return (Vector2)transform.position;
-    }
-
-    public float GetBubbleAirPercentage() {
-        return bubbleAirCurrent / bubbleAirMax;
+    public float GetBubbleAirCurrent() {
+        return bubbleAirCurrent;
     }
 
     public void DamageBubbleAir(float damage) {
         if (!isDashing) {
-            OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
             bubbleAirCurrent -= damage;
             bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
             if(bubbleAirCurrent <= 0) {
@@ -96,7 +88,6 @@ public class Player : MonoBehaviour
         return (Vector2)transform.position;
     }
     public void HealBubbleAir(float healAmount) {
-        OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
         bubbleAirCurrent += healAmount;
         bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
     }
@@ -111,15 +102,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void SetPlayerHitBox()
-    {
-        playerCollider.radius = bubbleAirCurrent / 50;
-    }
-
     private IEnumerator Dash()
     {
         canDash = false;
         isDashing = true;
+
+        StartCoroutine(CameraShake.Instance.Shake(0.2f, 0.2f));
 
         // Başlangıçta dash yönünü belirle
         Vector2 dashDirection = GameInput.Instance.GetMovementVector().normalized;
@@ -155,5 +143,10 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
+    private void SetPlayerHitBox()
+    {
+        playerCollider.radius = bubbleAirCurrent / 50;
+    }
+
 
 }

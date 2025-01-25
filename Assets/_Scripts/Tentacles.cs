@@ -9,15 +9,14 @@ public class Tentacles : MonoBehaviour
     [SerializeField] private TentacleType tentacleType;
 
     private readonly float life = 0.5f;
-    [SerializeField] private float damage;
 
     private bool isAttacking = false;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && isAttacking)
         {
-            Player.Instance.DamageBubbleAir(damage);
+            // can azalt
         }
     }
 
@@ -95,6 +94,5 @@ public class Tentacles : MonoBehaviour
 public enum TentacleType
 {
     BottomUp,
-    Rotate,
-    Line
+    Rotate
 }

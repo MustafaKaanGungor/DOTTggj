@@ -3,14 +3,19 @@ using System.Collections;
 
 public class CameraShake : MonoBehaviour
 {
+    public static CameraShake Instance { get; private set; }
     private Vector3 originalPosition;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
         originalPosition = transform.localPosition;
     }
 
-    //TODO korotin olmadan yapılması denenicek
     public IEnumerator Shake(float intensity, float duration)
     {
         float elapsedTime = 0f;

@@ -15,5 +15,4 @@ public class PlayerVisuals : MonoBehaviour
     public void StopTrail() {
         trailRenderer.emitting = false;
     }
-    
 }

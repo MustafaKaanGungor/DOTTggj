@@ -12,7 +12,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private int attackDamage;
     [SerializeField] private GameObject attackEffect;
     private bool isAttacking = false;
-    [Header("Prefabs")]
+
     [SerializeField] private GameObject tentacleParent;
     [SerializeField] private GameObject tentaclePrefab;
     [SerializeField] private GameObject tentacleLongParent;
@@ -21,9 +21,6 @@ public class Boss : MonoBehaviour
 
     private List<GameObject> tentaclePool = new List<GameObject>();
 
-    [SerializeField] public GameObject playerPos;
-    [SerializeField] private float bossHealthCurrent;
-    [SerializeField] private float bossHealthMax;
     [SerializeField] private GameObject[] projectilePrefabs;
     [SerializeField] private GameObject[] spawnPoints;
     [SerializeField] private float waveSpeed;
@@ -31,12 +28,13 @@ public class Boss : MonoBehaviour
     private float timeUntilSpawn;
     void Start()
     {
+
         TentaclePooling(20);
        
     }
     void Update()
     {
-        // Test etmek iï¿½in eklenmiï¿½tir
+        // Test etmek için eklenmiþtir
         if (Input.GetKeyDown(KeyCode.Space))
         {
             RotateTentacleAttack();
@@ -82,25 +80,25 @@ public class Boss : MonoBehaviour
     {
         Vector2 boxSize = new Vector2(attackWidht, attackHeight);
 
-        // **ï¿½nce kï¿½rmï¿½zï¿½ uyarï¿½ efekti verelim**
+        // **Önce kýrmýzý uyarý efekti verelim**
         foreach (Transform tentacle in tentacles)
         {
             SpriteRenderer sr = tentacle.GetComponent<SpriteRenderer>();
             if (sr != null)
             {
-                sr.color = Color.red; // **Kï¿½rmï¿½zï¿½ uyarï¿½**
+                sr.color = Color.red; // **Kýrmýzý uyarý**
             }
         }
 
-        yield return new WaitForSeconds(attackDelay); // **Uyarï¿½ sï¿½resi**
+        yield return new WaitForSeconds(attackDelay); // **Uyarý süresi**
 
-        // **Uyarï¿½yï¿½ kaldï¿½r ve saldï¿½rï¿½yï¿½ yap**
+        // **Uyarýyý kaldýr ve saldýrýyý yap**
         foreach (Transform tentacle in tentacles)
         {
             SpriteRenderer sr = tentacle.GetComponent<SpriteRenderer>();
             if (sr != null)
             {
-                sr.color = Color.black; // **Eski rengine dï¿½n**
+                sr.color = Color.black; // **Eski rengine dön**
             }
 
             Collider2D[] hitObjects = Physics2D.OverlapBoxAll(tentacle.position, boxSize, 0, playerMask);
@@ -122,7 +120,8 @@ public class Boss : MonoBehaviour
         int spawnedTenctacleCount = 0;
         while (spawnedTenctacleCount != tentacleCount)
         {
-            var tentacle = Instantiate(tentaclePrefab, tentacleParent.transform);
+            var tentacle = Instantiate(tentaclePrefab, transform.position, Quaternion.identity);
+            tentacle.transform.parent = tentacleParent.transform;
             tentacle.SetActive(false);
             tentaclePool.Add(tentacle);
             spawnedTenctacleCount++;
@@ -139,7 +138,7 @@ public class Boss : MonoBehaviour
         {
             if (maxAttempts-- <= 0)
             {
-                Debug.LogError("Maksimum deneme ulaï¿½ï¿½ldï¿½");
+                Debug.LogError("Maksimum deneme ulaþýldý");
                 break;
             }
 
@@ -158,12 +157,16 @@ public class Boss : MonoBehaviour
 
     private void BottomUpTentacleAttack()
     {
-        List<Vector2> randomPositions = GenerateRandomPositions(20, 2.5f);
+        var randomPositions = GenerateRandomPositions(20, 2.5f);
 
         for (int i = 0; i < randomPositions.Count; i++)
         {
             tentaclePool[i].transform.position = randomPositions[i];
-            tentaclePool[i].SetActive(true);
+        }
+
+        foreach (var item in tentaclePool)
+        {
+            item.SetActive(true);
         }
     }
 
@@ -172,14 +175,6 @@ public class Boss : MonoBehaviour
         foreach (var item in tentacleLong)
         {
             item.SetActive(true);
-        }
-    }
-
-    public void DamageHealth(float damage) {
-        bossHealthCurrent -= damage;
-        bossHealthCurrent = Mathf.Clamp(bossHealthCurrent, 0, bossHealthMax);
-        if(bossHealthCurrent <= 0) {
-            //dead
         }
     }
 

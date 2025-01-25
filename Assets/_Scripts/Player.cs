@@ -19,9 +19,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float dashingPower = 200f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = 1f;
-    [SerializeField] private TrailRenderer trailRenderer;
     [SerializeField] private float moveSpeed = 10;
     private Rigidbody2D playerRb;
+    [SerializeField] private PlayerVisuals playerVisuals;
 
     private bool isDashing = false;
     private bool canDash = true;
@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
         }
 
         float dashTimer = 0f;
-        trailRenderer.emitting = true;
+        playerVisuals.StartTrail();
 
         while (dashTimer < dashingTime)
         {
@@ -135,7 +135,7 @@ public class Player : MonoBehaviour
         }
 
         // Dash bittiğinde
-        trailRenderer.emitting = false;
+        playerVisuals.StopTrail();
         playerRb.linearVelocity = Vector2.zero; // Dash durduğunda hız sıfırlanır
         isDashing = false;
 

@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     private int bubbleAirCurrent = 100;
     private int bubbleAirmax = 100;
 
-
+    [SerializeField] public Vector2 playerPos;
     private bool isDashing = false;
     private bool canDash = true;
 

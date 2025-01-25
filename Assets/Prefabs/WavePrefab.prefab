@@ -198,4 +198,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50dc5e8f27e474642bb9e57035771bfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setCollider: 1
+  setCollider: 0.3

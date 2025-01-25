@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Wave : MonoBehaviour
 {
-    //collider belirtilen  saniye sonra triggerý enable oluyooluyor
+    //collider belirtilen  saniye sonra triggerï¿½ enable oluyooluyor
     [SerializeField] private float setCollider = 1f;
+    [SerializeField] private float damage = 20;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,8 +15,7 @@ public class Wave : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Palayer has take damage!!!");
-            //player.takedamage
+            Player.Instance.DamageBubbleAir(damage);
             Invoke(nameof(EnableTrigger), setCollider);
         }
 

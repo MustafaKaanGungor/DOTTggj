@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,6 +8,7 @@ public class Player : MonoBehaviour
 
     public event EventHandler OnPlayerDeath;
     public event EventHandler OnPlayerHealthUpdated;
+    public event EventHandler OnPlayerDashUpdated;
 
     [Header("Bubble Air")]
     public float bubbleAirCurrent;
@@ -33,7 +33,8 @@ public class Player : MonoBehaviour
     private bool isDead = false;
 
 
-    private void Awake() {
+    private void Awake()
+    {
         Instance = this;
         playerRb = GetComponent<Rigidbody2D>();
     }
@@ -47,8 +48,10 @@ public class Player : MonoBehaviour
 
     private void PlayerOnDash(object sender, EventArgs e)
     {
-        if(canDash && !isDead) {
+        if (canDash && !isDead)
+        {
             StartCoroutine(Dash());
+            OnPlayerDashUpdated?.Invoke(new float[] { dashingTime, dashingCooldown }, EventArgs.Empty);
         }
     }
 
@@ -65,32 +68,39 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Movement() {
+    private void Movement()
+    {
         Vector2 inputVector = GameInput.Instance.GetMovementVector().normalized;
         playerRb.MovePosition(new Vector2(transform.position.x, transform.position.y) + inputVector * Time.deltaTime * moveSpeed);
     }
 
-    public Vector2 GetPlayerPositionVector() {
+    public Vector2 GetPlayerPositionVector()
+    {
         return (Vector2)transform.position;
     }
 
-    public float GetBubbleAirPercentage() {
+    public float GetBubbleAirPercentage()
+    {
         return bubbleAirCurrent / bubbleAirMax;
     }
 
-    public void DamageBubbleAir(float damage) {
-        if (!isDashing) {
+    public void DamageBubbleAir(float damage)
+    {
+        if (!isDashing)
+        {
             OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
             bubbleAirCurrent -= damage;
             bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
-            if(bubbleAirCurrent <= 0) {
+            if (bubbleAirCurrent <= 0)
+            {
                 isDead = true;
                 OnPlayerDeath?.Invoke(this, EventArgs.Empty);
             }
         }
     }
 
-    public void HealBubbleAir(float healAmount) {
+    public void HealBubbleAir(float healAmount)
+    {
         OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
         bubbleAirCurrent += healAmount;
         bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);

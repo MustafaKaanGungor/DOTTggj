@@ -21,12 +21,14 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float dashingPower = 200f;
     [SerializeField] private float dashingTime = 0.2f;
+    [SerializeField] private float effectTime = 0.3f;
     [SerializeField] private float dashingCooldown = 1f;
 
     [Header("Components")]
     private Rigidbody2D playerRb;
     private CircleCollider2D playerCollider;
     [SerializeField] private PlayerVisuals playerVisuals;
+    [SerializeField] private GameObject dashEffect;
 
     private bool isDashing = false;
     private bool canDash = true;
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        dashEffect.SetActive(false);
         bubbleAirCurrent = bubbleAirMax;
         playerCollider = GetComponent<CircleCollider2D>();
         GameInput.Instance.OnDash += PlayerOnDash;
@@ -126,6 +129,8 @@ public class Player : MonoBehaviour
         canDash = false;
         isDashing = true;
 
+        StartCoroutine(PlayDashEffect());
+
         // Başlangıçta dash yönünü belirle
         Vector2 dashDirection = GameInput.Instance.GetMovementVector().normalized;
 
@@ -159,6 +164,21 @@ public class Player : MonoBehaviour
 
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+    IEnumerator PlayDashEffect()
+    {
+        dashEffect.SetActive(true);
+
+        float effectTimer = 0f;
+
+        while (effectTimer < effectTime)
+        {
+            effectTimer += Time.deltaTime;
+
+            yield return null;
+        }
+
+        dashEffect.SetActive(false);
     }
 
 }

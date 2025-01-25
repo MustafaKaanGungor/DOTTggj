@@ -10,11 +10,11 @@ public class Boss : MonoBehaviour
     [SerializeField] private float attackHeight = 4f;
     [SerializeField] private int attackDamage;
     [SerializeField] private GameObject attackEffect;
-
+    [SerializeField] public GameObject playerPos;
     
     void Start()
     {
-        
+        LineAttack(new Vector2(playerPos.transform.position.x,playerPos.transform.position.y));
     }
     private void LineAttack(Vector2 targetPos)
     {

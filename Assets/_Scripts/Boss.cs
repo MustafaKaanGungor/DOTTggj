@@ -1,5 +1,5 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
@@ -7,6 +7,8 @@ public class Boss : MonoBehaviour
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private Transform tentacle;
     [SerializeField] private float attackDelay = 1.5f;
+    [SerializeField] private float attackWidht = 1f;
+    [SerializeField] private float attackHeight = 4f;
     [SerializeField] private float attackWeight = 3f;
     [SerializeField] private int attackDamage;
     [SerializeField] private GameObject attackEffect;
@@ -22,7 +24,29 @@ public class Boss : MonoBehaviour
 
     void Start()
     {
+
         TentaclePooling(20);
+    }
+
+    private void LineAttack(Vector2 targetPos)
+    {
+        StartCoroutine(TentacleLineAttack(targetPos));
+    }
+
+    private IEnumerator TentacleLineAttack(Vector2 targetPos)
+    {
+
+        yield return new WaitForSeconds(attackDelay);
+        Vector2 boxSize = new Vector2(attackWidht, attackHeight);
+        Collider2D[] hitObjects = Physics2D.OverlapBoxAll(tentacle.transform.position, boxSize, 0f, playerMask);
+        foreach (Collider2D hitObject in hitObjects)
+        {
+            if (hitObject.CompareTag("Player"))
+            {
+                //player take damage metodu
+                Debug.Log("Attacked player");
+            }
+        }
     }
 
     void Update()
@@ -30,8 +54,11 @@ public class Boss : MonoBehaviour
         // Test etmek için eklenmiþtir
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            BottomUpTentacleAttack();
             RotateTentacleAttack();
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            BottomUpTentacleAttack();
         }
     }
 
@@ -46,6 +73,11 @@ public class Boss : MonoBehaviour
             tentaclePool.Add(tentacle);
             spawnedTenctacleCount++;
         }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(tentacle.position, new Vector2(attackWidht, attackHeight));
     }
 
     public List<Vector2> GenerateRandomPositions(int count, float minDistance)

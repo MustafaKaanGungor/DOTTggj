@@ -49,7 +49,7 @@ public class Tentacles : MonoBehaviour
     IEnumerator TentacleRotateAttackCoroutine()
     {
         isAttacking = true;
-        float duration = life / 2;
+        float duration = life;
         Vector3 startScale = tentacle.transform.localScale;
         Vector3 targetScale = new Vector3(1f, startScale.y, startScale.z);
         Quaternion startRotation = tentacle.transform.rotation;

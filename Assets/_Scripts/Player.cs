@@ -51,15 +51,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void PlayerOnAttack(object sender, EventArgs e)
-    {
-        //oyuncu saldırıyor
-        Debug.Log("heyo");
-        DamageBubbleAir(bubbleSpendPerAttack);
-        //Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y), new Vector2(5,5), transform.right, )
-
-    }
-
     void Update()
     {
         DecreaseBubblePerSecond();

@@ -13,7 +13,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private int attackDamage;
     [SerializeField] private GameObject attackEffect;
 
-
+    [Header("Prefabs")]
     [SerializeField] private GameObject tentacleParent;
     [SerializeField] private GameObject tentaclePrefab;
     [SerializeField] private GameObject tentacleLongParent;
@@ -23,10 +23,12 @@ public class Boss : MonoBehaviour
     private List<GameObject> tentaclePool = new List<GameObject>();
 
     [SerializeField] public GameObject playerPos;
+
+    [SerializeField] private float bossHealthCurrent;
+    [SerializeField] private float bossHealthMax;
     
     void Start()
     {
-
         TentaclePooling(20);
         LineAttack(new Vector2(playerPos.transform.position.x,playerPos.transform.position.y));
     }
@@ -54,7 +56,7 @@ public class Boss : MonoBehaviour
 
     void Update()
     {
-        // Test etmek için eklenmiþtir
+        // Test etmek iï¿½in eklenmiï¿½tir
         if (Input.GetKeyDown(KeyCode.Space))
         {
             RotateTentacleAttack();
@@ -70,13 +72,13 @@ public class Boss : MonoBehaviour
         int spawnedTenctacleCount = 0;
         while (spawnedTenctacleCount != tentacleCount)
         {
-            var tentacle = Instantiate(tentaclePrefab, transform.position, Quaternion.identity);
-            tentacle.transform.parent = tentacleParent.transform;
+            var tentacle = Instantiate(tentaclePrefab, tentacleParent.transform);
             tentacle.SetActive(false);
             tentaclePool.Add(tentacle);
             spawnedTenctacleCount++;
         }
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
@@ -92,7 +94,7 @@ public class Boss : MonoBehaviour
         {
             if (maxAttempts-- <= 0)
             {
-                Debug.LogError("Maksimum deneme ulaþýldý");
+                Debug.LogError("Maksimum deneme ulaï¿½ï¿½ldï¿½");
                 break;
             }
 
@@ -111,16 +113,12 @@ public class Boss : MonoBehaviour
 
     private void BottomUpTentacleAttack()
     {
-        var randomPositions = GenerateRandomPositions(20, 2.5f);
+        List<Vector2> randomPositions = GenerateRandomPositions(20, 2.5f);
 
         for (int i = 0; i < randomPositions.Count; i++)
         {
             tentaclePool[i].transform.position = randomPositions[i];
-        }
-
-        foreach (var item in tentaclePool)
-        {
-            item.SetActive(true);
+            tentaclePool[i].SetActive(true);
         }
     }
 
@@ -129,6 +127,14 @@ public class Boss : MonoBehaviour
         foreach (var item in tentacleLong)
         {
             item.SetActive(true);
+        }
+    }
+
+    public void DamageHealth(float damage) {
+        bossHealthCurrent -= damage;
+        bossHealthCurrent = Mathf.Clamp(bossHealthCurrent, 0, bossHealthMax);
+        if(bossHealthCurrent <= 0) {
+            //dead
         }
     }
 

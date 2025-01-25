@@ -9,23 +9,25 @@ public class Player : MonoBehaviour
 
     public event EventHandler OnPlayerDeath;
 
-    #region Bubble System References
-    [Header("BubbleAmount References")]
+    [Header("Bubble Air")]
     public float bubbleAirCurrent;
     public float bubbleAirMax = 100;
     [SerializeField] private float bubbleSpendPerAttack;
     [SerializeField] private float bubbleSpendPerSecond;
     private float bubbleTimer;
-    private CircleCollider2D playerCollider;
-    #endregion
+
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 10;
+
     [SerializeField] private float dashingPower = 200f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = 1f;
-    [SerializeField] private float moveSpeed = 10;
+
+    [Header("Components")]
     private Rigidbody2D playerRb;
+    private CircleCollider2D playerCollider;
     [SerializeField] private PlayerVisuals playerVisuals;
 
-    [SerializeField] public Vector2 playerPos;
     private bool isDashing = false;
     private bool canDash = true;
     private bool isDead = false;
@@ -40,7 +42,6 @@ public class Player : MonoBehaviour
     {
         bubbleAirCurrent = bubbleAirMax;
         playerCollider = GetComponent<CircleCollider2D>();
-        GameInput.Instance.OnAttack += PlayerOnAttack;
         GameInput.Instance.OnDash += PlayerOnDash;
     }
 
@@ -67,6 +68,10 @@ public class Player : MonoBehaviour
     private void Movement() {
         Vector2 inputVector = GameInput.Instance.GetMovementVector().normalized;
         playerRb.MovePosition(new Vector2(transform.position.x, transform.position.y) + inputVector * Time.deltaTime * moveSpeed);
+    }
+
+    public Vector2 GetPlayerPositionVector() {
+        return (Vector2)transform.position;
     }
 
     public float GetBubbleAirCurrent() {
@@ -99,12 +104,17 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void SetPlayerHitBox()
+    {
+        playerCollider.radius = bubbleAirCurrent / 50;
+    }
+
     private IEnumerator Dash()
     {
         canDash = false;
         isDashing = true;
 
-        StartCoroutine(CameraShake.Instance.Shake(0.2f, 0.2f));
+        StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(0.2f, 0.2f));
 
         // Başlangıçta dash yönünü belirle
         Vector2 dashDirection = GameInput.Instance.GetMovementVector().normalized;
@@ -140,10 +150,5 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
-    private void SetPlayerHitBox()
-    {
-        playerCollider.radius = bubbleAirCurrent / 50;
-    }
-
 
 }

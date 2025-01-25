@@ -19,6 +19,7 @@ public class Tentacles : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && isAttacking)
         {
+
             Player.Instance.DamageBubbleAir(damage);
         }
     }

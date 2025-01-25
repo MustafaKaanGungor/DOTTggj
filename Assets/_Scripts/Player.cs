@@ -20,9 +20,11 @@ public class Player : MonoBehaviour
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = 1f;
     [SerializeField] private float moveSpeed = 10;
-    private Rigidbody2D playerRb;
+    private int bubbleAirCurrent = 100;
+    private int bubbleAirmax = 100;
     [SerializeField] private PlayerVisuals playerVisuals;
 
+    [SerializeField] public Vector2 playerPos;
     private bool isDashing = false;
     private bool canDash = true;
     private bool isDead = false;

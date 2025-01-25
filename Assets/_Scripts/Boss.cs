@@ -9,7 +9,8 @@ public class Boss : MonoBehaviour
     [SerializeField] private float attackDelay = 1.5f;
     [SerializeField] private float attackWidht = 1f;
     [SerializeField] private float attackHeight = 4f;
-    [SerializeField] private int attackDamage;
+    [SerializeField] private int buttomUpDamage = 30;
+    [SerializeField] private int tentacleDamage = 20;
     [SerializeField] private GameObject attackEffect;
     private bool isAttacking = false;
 
@@ -116,6 +117,7 @@ public class Boss : MonoBehaviour
                 if (hitObject.CompareTag("Player"))
                 {
                     Debug.Log("Attacked player");
+                    Player.Instance.DamageBubbleAir(tentacleDamage);
                 }
             }
         }

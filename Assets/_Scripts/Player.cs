@@ -59,12 +59,16 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        
+
+        DecreaseBubblePerSecond();
+    }
+
+    private void FixedUpdate() {
         if (!isDashing && !isDead)
         {
             Movement();
         }
-
-        DecreaseBubblePerSecond();
     }
 
     private void Movement() {

@@ -8,6 +8,7 @@ public class PlayerAim : MonoBehaviour
     [SerializeField] private GameObject fireEffect;
     private float selfDamageTimer = 0;
     private void Start() {
+
     }
 
     void Update()
@@ -15,10 +16,6 @@ public class PlayerAim : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.right = (mousePos - (Vector2)transform.position).normalized;
         if(GameInput.Instance.IsAttacking()) {
-            if (fireEffect.GetComponent<ParticleSystem>().isStopped)
-            {
-                fireEffect.GetComponent<ParticleSystem>().Play();
-            }
             selfDamageTimer += Time.deltaTime;
             if(selfDamageTimer >= 1) {
                 Player.Instance.DamageBubbleAir(2);
@@ -30,16 +27,7 @@ public class PlayerAim : MonoBehaviour
                     hit.collider.GetComponent<Boss>().DamageHealth(damage);
                 }
             }
+            
         }
-        else
-        {
-            fireEffect.GetComponent<ParticleSystem>().Stop();
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + (new Vector3(1,0,0) * 5));
     }
 }

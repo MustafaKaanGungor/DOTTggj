@@ -62,9 +62,11 @@ public class Player : MonoBehaviour
     {
         DecreaseBubblePerSecond();
         //SetPlayerHitBox();
+        StayMap();
     }
     void FixedUpdate()
     {
+        
         if (!isDashing && !isDead)
         {
             Movement();
@@ -186,4 +188,17 @@ public class Player : MonoBehaviour
         dashEffect.SetActive(false);
     }
 
+    private void StayMap()
+    {
+        Vector3 minBounds = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
+        Vector3 maxBounds = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
+
+        Vector3 playerPos = transform.position;
+
+        // Oyuncuyu ekranın sınırları içinde tut
+        playerPos.x = Mathf.Clamp(playerPos.x, minBounds.x, maxBounds.x);
+        playerPos.y = Mathf.Clamp(playerPos.y, minBounds.y, maxBounds.y);
+
+        transform.position = playerPos;
+    }
 }

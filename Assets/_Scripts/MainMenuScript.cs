@@ -28,9 +28,6 @@ public class MainMenuScript : MonoBehaviour
     private int spriteIndex = 0;
     [SerializeField] float timeToWait;
     [SerializeField] private VolumeProfile profile;
-    
-
-    
 
     void FixedUpdate()
     {   
@@ -57,8 +54,6 @@ public class MainMenuScript : MonoBehaviour
         AudioListener.volume  = volume / 50;
         volumeTextValue.text = Mathf.RoundToInt(volume).ToString();
     }
-
-
     
     public void Brightness(float brightness)
     {
@@ -83,12 +78,4 @@ public class MainMenuScript : MonoBehaviour
         BackgroundImage.sprite = images[spriteIndex];
         spriteIndex++;
     }
-
-   
-    
-   
-
-   
-    
-
 }

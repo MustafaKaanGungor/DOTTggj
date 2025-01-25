@@ -5,22 +5,21 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
+
+    public event EventHandler OnPlayerDeath;
+
     #region Bubble System References
-    public static float bubbleAmount;
     [Header("BubbleAmount References")]
-    [SerializeField] private float bubbleAmountAtStart;
+    [SerializeField] private float bubbleAirCurrent;
+    [SerializeField] private float bubbleAirMax = 100;
     [SerializeField] private float bubbleSpendPerAttack;
     [SerializeField] private float bubbleSpendPerSecond;
+    private float bubbleTimer;
+    #endregion
     [SerializeField] private float dashingPower = 200f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = 1f;
-
     [SerializeField] private TrailRenderer trailRenderer;
-
-
-    private float bubbleTimer;
-    #endregion
-    private Rigidbody2D playerRb;
     [SerializeField] private float moveSpeed = 10;
     private int bubbleAirCurrent = 100;
     private int bubbleAirmax = 100;
@@ -28,6 +27,7 @@ public class Player : MonoBehaviour
     [SerializeField] public Vector2 playerPos;
     private bool isDashing = false;
     private bool canDash = true;
+    private bool isDead = false;
 
 
     private void Awake() {
@@ -37,40 +37,35 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        bubbleAmount = bubbleAmountAtStart;
+        bubbleAirCurrent = bubbleAirMax;
         GameInput.Instance.OnAttack += PlayerOnAttack;
         GameInput.Instance.OnDash += PlayerOnDash;
     }
 
     private void PlayerOnDash(object sender, EventArgs e)
     {
-        //isDashing = true
-
-
+        if(canDash && !isDead) {
+            StartCoroutine(Dash());
+        }
     }
 
     private void PlayerOnAttack(object sender, EventArgs e)
     {
         //oyuncu saldırıyor
         Debug.Log("heyo");
-        bubbleAmount -= bubbleSpendPerAttack;
+        DamageBubbleAir(bubbleSpendPerAttack);
         //Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y), new Vector2(5,5), transform.right, )
 
     }
 
     void Update()
     {
-        if (!isDashing)
+        if (!isDashing && !isDead)
         {
             Movement();
         }
 
         DecreaseBubblePerSecond();
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
-        {
-            StartCoroutine(Dash());
-        }
     }
 
     private void Movement() {
@@ -78,28 +73,32 @@ public class Player : MonoBehaviour
         playerRb.MovePosition(new Vector2(transform.position.x, transform.position.y) + inputVector * Time.deltaTime * moveSpeed);
     }
 
-    public int GetBubbleAirCurrent() {
+    public float GetBubbleAirCurrent() {
         return bubbleAirCurrent;
     }
 
-    public void DamageBubbleAir(int damage) {
+    public void DamageBubbleAir(float damage) {
         if (!isDashing) {
             bubbleAirCurrent -= damage;
-            Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirmax);
+            Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
+            if(bubbleAirCurrent <= 0) {
+                isDead = true;
+                OnPlayerDeath?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 
-    public void HealBubbleAir(int healAmount) {
+    public void HealBubbleAir(float healAmount) {
         bubbleAirCurrent += healAmount;
-        Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirmax);
+        Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
     }
-    //Decrease the bubble amount per second
+
     private void DecreaseBubblePerSecond()
     {
         bubbleTimer += Time.deltaTime;
         if (bubbleTimer >= 1)
         {
-            bubbleAmount -= bubbleSpendPerSecond;
+            DamageBubbleAir(bubbleSpendPerSecond);
             bubbleTimer = 0;
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,11 +11,12 @@ public class Player : MonoBehaviour
 
     #region Bubble System References
     [Header("BubbleAmount References")]
-    [SerializeField] private float bubbleAirCurrent;
-    [SerializeField] private float bubbleAirMax = 100;
+    public float bubbleAirCurrent;
+    public float bubbleAirMax = 100;
     [SerializeField] private float bubbleSpendPerAttack;
     [SerializeField] private float bubbleSpendPerSecond;
     private float bubbleTimer;
+    private CircleCollider2D playerCollider;
     #endregion
     [SerializeField] private float dashingPower = 200f;
     [SerializeField] private float dashingTime = 0.2f;
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         bubbleAirCurrent = bubbleAirMax;
+        playerCollider = GetComponent<CircleCollider2D>();
         GameInput.Instance.OnAttack += PlayerOnAttack;
         GameInput.Instance.OnDash += PlayerOnDash;
     }
@@ -59,12 +62,15 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        DecreaseBubblePerSecond();
+        SetPlayerHitBox();
+    }
+    void FixedUpdate()
+    {
         if (!isDashing && !isDead)
         {
             Movement();
         }
-
-        DecreaseBubblePerSecond();
     }
 
     private void Movement() {
@@ -143,5 +149,10 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
+    private void SetPlayerHitBox()
+    {
+        playerCollider.radius = bubbleAirCurrent / 50;
+    }
+
 
 }

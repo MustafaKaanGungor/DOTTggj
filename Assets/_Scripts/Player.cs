@@ -119,6 +119,10 @@ public class Player : MonoBehaviour
         }
     }
 
+    public bool IsPlayerDead() {
+        return isDead;
+    }
+
     private void SetPlayerHitBox()
     {
         playerCollider.radius = bubbleAirCurrent / 50;

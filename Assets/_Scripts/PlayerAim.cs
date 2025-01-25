@@ -5,6 +5,7 @@ public class PlayerAim : MonoBehaviour
 {
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private float damage;
+    [SerializeField] private GameObject fireEffect;
     private void Start() {
 
     }

@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     }
 
     private State state;
+    private float gameStartTimer;
+    private float gameStartTimerMax;
 
     public event EventHandler OnStateChanged;
 
@@ -28,9 +30,17 @@ public class GameManager : MonoBehaviour
     private void Update() {
         switch(state) {
             case State.WaitingToStart:
+                gameStartTimer += Time.deltaTime;
+                if(gameStartTimer >= gameStartTimerMax) {
+                    state = State.GamePlaying;
+                    OnStateChanged?.Invoke(this,EventArgs.Empty);
+                }
                 break;
             case State.GamePlaying:
-                
+                if(Boss.Instance.IsBossDead() || Player.Instance.IsPlayerDead()) {
+                    state = State.GameOver;
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
+                }
                 break;
             case State.GameOver:
                 break;

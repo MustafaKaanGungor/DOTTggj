@@ -5,14 +5,20 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
+    public static PlayerUI Instance { get; private set; }
     [SerializeField] private Image dashBar;
     [SerializeField] private Image healthSlider;
+    [SerializeField] private Image flashEffectImage;
 
     private void Start()
     {
         Player.Instance.OnPlayerHealthUpdated += PlayerOnPlayerHealthUpdated;
         Player.Instance.OnPlayerDashUpdated += PLayerOnPlayerDashUpdated; 
         healthSlider.fillAmount = 1f;
+    }
+    private void Awake()
+    {
+        Instance = this;
     }
 
     private void PLayerOnPlayerDashUpdated(object sender, EventArgs e)
@@ -24,6 +30,34 @@ public class PlayerUI : MonoBehaviour
     private void PlayerOnPlayerHealthUpdated(object sender, EventArgs e)
     {
         healthSlider.fillAmount = Player.Instance.GetBubbleAirPercentage();
+    }
+    public IEnumerator ShowHealFlash()
+    {
+        float duration = 0.2f; // Efektin süresi
+        float elapsedTime = 0f;
+
+        Color initialColor = flashEffectImage.color;
+        Color targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0.5f); // Yarý þeffaf kýrmýzý
+
+        // Alpha deðerini artýr
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            flashEffectImage.color = Color.Lerp(initialColor, targetColor, elapsedTime / duration);
+            yield return null;
+        }
+
+        elapsedTime = 0f;
+
+        // Alpha deðerini azalt
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            flashEffectImage.color = Color.Lerp(targetColor, initialColor, elapsedTime / duration);
+            yield return null;
+        }
+
+        flashEffectImage.color = initialColor;
     }
 
     public void UpdateVisuals()

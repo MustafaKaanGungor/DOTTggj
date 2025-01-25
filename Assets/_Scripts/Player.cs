@@ -105,6 +105,7 @@ public class Player : MonoBehaviour
     public void HealBubbleAir(float healAmount)
     {
         OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
+        PlayerUI.Instance.StartCoroutine(PlayerUI.Instance.ShowHealFlash());
         bubbleAirCurrent += healAmount;
         bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
     }
@@ -117,6 +118,10 @@ public class Player : MonoBehaviour
             DamageBubbleAir(bubbleSpendPerSecond);
             bubbleTimer = 0;
         }
+    }
+
+    public bool IsPlayerDead() {
+        return isDead;
     }
 
     private void SetPlayerHitBox()

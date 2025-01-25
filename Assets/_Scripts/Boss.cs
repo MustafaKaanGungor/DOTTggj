@@ -35,6 +35,8 @@ public class Boss : MonoBehaviour
     private float attackTimer;
     [SerializeField] private float attackInterval;
 
+    private bool isDead = false;
+
 
     private void Awake()
     {
@@ -196,7 +198,7 @@ public class Boss : MonoBehaviour
         bossHealthCurrent -= damage;
         bossHealthCurrent = Mathf.Clamp(bossHealthCurrent, 0, bossHealthMax);
         if(bossHealthCurrent <= 0) {
-            //dead
+            isDead = true;
         }
     }
     private void TentacleSetActiveFalse()
@@ -206,4 +208,8 @@ public class Boss : MonoBehaviour
             tentacle.gameObject.SetActive(false);
         }
     }
+    public bool IsBossDead() {
+        return isDead;
+    }
+
 }

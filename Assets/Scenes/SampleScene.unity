@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 130973710}
   - component: {fileID: 130973712}
   - component: {fileID: 130973711}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: GameOverPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b202425539250944f8e3e1be5397e910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossHealtBar: {fileID: 0}
+  bossHealtBar: {fileID: 1606087474}
 --- !u!1 &213338585 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5505535412878310007, guid: 94541ffb4bcb17e47889d9af88f4cc41, type: 3}
@@ -1120,7 +1120,7 @@ GameObject:
   - component: {fileID: 700617081}
   - component: {fileID: 700617083}
   - component: {fileID: 700617082}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1343,6 +1343,7 @@ RectTransform:
   - {fileID: 2022828077}
   - {fileID: 1284078727}
   - {fileID: 1788765126}
+  - {fileID: 295618429}
   - {fileID: 130973710}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1520,7 +1521,7 @@ GameObject:
   - component: {fileID: 899389730}
   - component: {fileID: 899389729}
   - component: {fileID: 899389728}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: MenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1995,7 +1996,7 @@ PrefabInstance:
     - target: {fileID: 2252256875234500534, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
       propertyPath: 'tentacleLong.Array.data[0]'
       value: 
-      objectReference: {fileID: 2058098944}
+      objectReference: {fileID: 0}
     - target: {fileID: 2252256875234500534, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
       propertyPath: 'tentacleLong.Array.data[1]'
       value: 
@@ -2003,7 +2004,7 @@ PrefabInstance:
     - target: {fileID: 2252256875234500534, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
       propertyPath: 'tentacleLong.Array.data[2]'
       value: 
-      objectReference: {fileID: 1522242798}
+      objectReference: {fileID: 0}
     - target: {fileID: 2252256875234500534, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
       propertyPath: 'tentacleLong.Array.data[3]'
       value: 
@@ -2473,7 +2474,7 @@ GameObject:
   - component: {fileID: 1549439948}
   - component: {fileID: 1549439950}
   - component: {fileID: 1549439949}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3449,7 +3450,7 @@ GameObject:
   - component: {fileID: 2033860783}
   - component: {fileID: 2033860782}
   - component: {fileID: 2033860781}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: RestartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -8,11 +8,12 @@ public class HealtBarHandler : MonoBehaviour
 
     void Start()
     {
-        
+        bossHealtBar.maxValue = Boss.Instance.bossHealthCurrent;
     }
     
     void Update()
     {
-        
+        bossHealtBar.value = Boss.Instance.bossHealthCurrent;
+
     }
 }

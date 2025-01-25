@@ -28,7 +28,6 @@ public class AudioManager:MonoBehaviour
         MainMenu = SceneManager.GetSceneByBuildIndex(0);
         if(currentScene == MainMenu)
         {
-            Time.timeScale = slowedTime;
         }
         else
         {

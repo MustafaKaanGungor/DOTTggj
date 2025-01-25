@@ -55,7 +55,7 @@ public class Tentacles : MonoBehaviour
     {
         isAttacking = true;
         tentacleCollider.enabled = true;
-        float duration = life;
+        float duration = life * 2f;
         Vector3 startScale = tentacle.transform.localScale;
         Vector3 targetScale = new Vector3(1f, startScale.y, startScale.z);
         Quaternion startRotation = tentacle.transform.rotation;

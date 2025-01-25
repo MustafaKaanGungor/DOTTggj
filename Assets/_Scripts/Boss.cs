@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    public static Boss Instance;
+
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private Transform[] tentacles;
     [SerializeField] private float attackDelay = 1.5f;
@@ -32,7 +34,13 @@ public class Boss : MonoBehaviour
 
     private float attackTimer;
     [SerializeField] private float attackInterval;
-    
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         TentaclePooling(20);

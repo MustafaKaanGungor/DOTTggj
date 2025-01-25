@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+       
         dashEffect.SetActive(false);
         bubbleAirCurrent = bubbleAirMax;
         playerCollider = GetComponent<CircleCollider2D>();
@@ -94,6 +95,10 @@ public class Player : MonoBehaviour
         if (!isDashing)
         {
             OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
+            if(damage >= 2)
+            {
+                PlayerUI.Instance.StartCoroutine(PlayerUI.Instance.ShowFlashEffect(PlayerUI.Instance.DamageFlashEffectImage));
+            }
             bubbleAirCurrent -= damage;
             bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
             if (bubbleAirCurrent <= 0)
@@ -107,7 +112,7 @@ public class Player : MonoBehaviour
     public void HealBubbleAir(float healAmount)
     {
         OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
-        PlayerUI.Instance.StartCoroutine(PlayerUI.Instance.ShowHealFlash());
+        PlayerUI.Instance.StartCoroutine(PlayerUI.Instance.ShowFlashEffect(PlayerUI.Instance.healFlashEffectImage));
         bubbleAirCurrent += healAmount;
         bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
     }

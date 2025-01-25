@@ -8,7 +8,10 @@ public class PlayerUI : MonoBehaviour
     public static PlayerUI Instance { get; private set; }
     [SerializeField] private Image dashBar;
     [SerializeField] private Image healthSlider;
-    [SerializeField] private Image flashEffectImage;
+    [SerializeField] public Image healFlashEffectImage;
+    [SerializeField] public Image DamageFlashEffectImage;
+    private bool isFlashingH = false;
+    private bool isFlashingD = false;
 
     private void Start()
     {
@@ -31,19 +34,21 @@ public class PlayerUI : MonoBehaviour
     {
         healthSlider.fillAmount = Player.Instance.GetBubbleAirPercentage();
     }
-    public IEnumerator ShowHealFlash()
+    public IEnumerator ShowFlashEffect(Image flash)
     {
+        if (isFlashingH) yield break; // Eðer zaten çalýþýyorsa çýk
+        isFlashingH = true;
         float duration = 0.2f; // Efektin süresi
         float elapsedTime = 0f;
 
-        Color initialColor = flashEffectImage.color;
+        Color initialColor = flash.color;
         Color targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0.5f); // Yarý þeffaf kýrmýzý
 
         // Alpha deðerini artýr
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            flashEffectImage.color = Color.Lerp(initialColor, targetColor, elapsedTime / duration);
+            flash.color = Color.Lerp(initialColor, targetColor, elapsedTime / duration);
             yield return null;
         }
 
@@ -53,11 +58,12 @@ public class PlayerUI : MonoBehaviour
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            flashEffectImage.color = Color.Lerp(targetColor, initialColor, elapsedTime / duration);
+            flash.color = Color.Lerp(targetColor, initialColor, elapsedTime / duration);
             yield return null;
         }
 
-        flashEffectImage.color = initialColor;
+        flash.color = initialColor;
+        isFlashingH = false; // Ýþlem bitti, tekrar çalýþabilir
     }
 
     public void UpdateVisuals()

@@ -105,6 +105,7 @@ public class Boss : MonoBehaviour
             if (sr != null)
             {
                 sr.color = Color.red; // **Kırmızı uyarı**
+                tentacle.gameObject.SetActive(true);
             }
         }
 
@@ -116,7 +117,8 @@ public class Boss : MonoBehaviour
             SpriteRenderer sr = tentacle.GetComponent<SpriteRenderer>();
             if (sr != null)
             {
-                sr.color = Color.black; // **Eski rengine dön**
+                sr.color = new Color(0.4056604f, 0.1215686f, 0.3331002f); // **Eski rengine dön**
+              tentacle.gameObject.SetActive(true);
             }
 
             Collider2D[] hitObjects = Physics2D.OverlapBoxAll(tentacle.position, boxSize, 0, playerMask);
@@ -130,6 +132,7 @@ public class Boss : MonoBehaviour
             }
         }
         isAttacking = false;
+        Invoke(nameof(TentacleSetActiveFalse), 0.5f);
     }
 
     public void TentaclePooling(int tentacleCount)
@@ -196,5 +199,11 @@ public class Boss : MonoBehaviour
             //dead
         }
     }
-
+    private void TentacleSetActiveFalse()
+    {
+        foreach (Transform tentacle in tentacles)
+        {
+            tentacle.gameObject.SetActive(false);
+        }
+    }
 }

@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     [Header("Bubble Air")]
     public float bubbleAirCurrent;
     public float bubbleAirMax = 100;
-    [SerializeField] private float bubbleSpendPerAttack;
     [SerializeField] private float bubbleSpendPerSecond;
     private float bubbleTimer;
 

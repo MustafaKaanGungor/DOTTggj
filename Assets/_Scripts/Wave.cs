@@ -10,11 +10,6 @@ public class Wave : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -23,7 +18,13 @@ public class Wave : MonoBehaviour
             //player.takedamage
             Invoke(nameof(EnableTrigger), setCollider);
         }
+
+        if (collision.gameObject.CompareTag("WaveEnd"))
+        {
+            Destroy(gameObject.transform.parent.gameObject);
+        }
     }
+
     private void EnableTrigger()
     {
         GetComponentInChildren<Collider2D>().isTrigger = true;

@@ -9,7 +9,6 @@ public class AudioManager:MonoBehaviour
     private Scene currentScene;
     private Scene MainMenu;
     [SerializeField] private float slowedTime;
-
     
     void Awake()
     {
@@ -22,6 +21,7 @@ public class AudioManager:MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     void Update()
     {
         currentScene = SceneManager.GetActiveScene();
@@ -35,6 +35,4 @@ public class AudioManager:MonoBehaviour
             Time.timeScale = 1;
         }
     }
-
-    
 }

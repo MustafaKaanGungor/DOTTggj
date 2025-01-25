@@ -9,7 +9,7 @@ public class Tentacles : MonoBehaviour
     [SerializeField] private TentacleType tentacleType;
 
     private readonly float life = 0.5f;
-    [SerializeField] private float damage;
+    [SerializeField] private float damage=30;
 
     private bool isAttacking = false;
 

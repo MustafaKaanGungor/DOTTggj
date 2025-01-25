@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     {
         bubbleAirCurrent = bubbleAirMax;
         playerCollider = GetComponent<CircleCollider2D>();
-        GameInput.Instance.OnAttack += PlayerOnAttack;
+        
         GameInput.Instance.OnDash += PlayerOnDash;
     }
 
@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         DecreaseBubblePerSecond();
-        SetPlayerHitBox();
+        //SetPlayerHitBox();
     }
     void FixedUpdate()
     {
@@ -83,7 +83,10 @@ public class Player : MonoBehaviour
             }
         }
     }
-
+    public Vector2 GetPlayerPosition()
+    {
+        return (Vector2)transform.position;
+    }
     public void HealBubbleAir(float healAmount) {
         bubbleAirCurrent += healAmount;
         bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);

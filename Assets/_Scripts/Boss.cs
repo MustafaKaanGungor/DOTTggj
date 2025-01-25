@@ -5,14 +5,13 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     [SerializeField] private LayerMask playerMask;
-    [SerializeField] private Transform tentacle;
+    [SerializeField] private Transform[] tentacles;
     [SerializeField] private float attackDelay = 1.5f;
     [SerializeField] private float attackWidht = 1f;
     [SerializeField] private float attackHeight = 4f;
-    [SerializeField] private float attackWeight = 3f;
     [SerializeField] private int attackDamage;
     [SerializeField] private GameObject attackEffect;
-
+    private bool isAttacking = false;
 
     [SerializeField] private GameObject tentacleParent;
     [SerializeField] private GameObject tentaclePrefab;
@@ -22,36 +21,17 @@ public class Boss : MonoBehaviour
 
     private List<GameObject> tentaclePool = new List<GameObject>();
 
-    [SerializeField] public GameObject playerPos;
-    
+    [SerializeField] private GameObject[] projectilePrefabs;
+    [SerializeField] private GameObject[] spawnPoints;
+    [SerializeField] private float waveSpeed;
+    [SerializeField] private float spawnDuration;
+    private float timeUntilSpawn;
     void Start()
     {
 
         TentaclePooling(20);
-        LineAttack(new Vector2(playerPos.transform.position.x,playerPos.transform.position.y));
+       
     }
-
-    private void LineAttack(Vector2 targetPos)
-    {
-        StartCoroutine(TentacleLineAttack(targetPos));
-    }
-
-    private IEnumerator TentacleLineAttack(Vector2 targetPos)
-    {
-
-        yield return new WaitForSeconds(attackDelay);
-        Vector2 boxSize = new Vector2(attackWidht, attackHeight);
-        Collider2D[] hitObjects = Physics2D.OverlapBoxAll(tentacle.transform.position, boxSize, 0f, playerMask);
-        foreach (Collider2D hitObject in hitObjects)
-        {
-            if (hitObject.CompareTag("Player"))
-            {
-                //player take damage metodu
-                Debug.Log("Attacked player");
-            }
-        }
-    }
-
     void Update()
     {
         // Test etmek için eklenmiþtir
@@ -63,7 +43,77 @@ public class Boss : MonoBehaviour
         {
             BottomUpTentacleAttack();
         }
+        SpawnLoop();
     }
+    void SpawnLoop()
+    {
+        timeUntilSpawn += Time.deltaTime;
+        if (timeUntilSpawn >= spawnDuration)
+        {
+            Spawn();
+            timeUntilSpawn = 0f;
+        }
+    }
+    void Spawn()
+    {
+        GameObject spawnP = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        GameObject spawnedProjectile = Instantiate(projectilePrefabs[Random.Range(0, projectilePrefabs.Length)], spawnP.transform.position,Quaternion.identity);
+        Rigidbody2D rigidbody = spawnedProjectile.GetComponent<Rigidbody2D>();
+        BoxCollider2D boxCollider = spawnedProjectile.GetComponent<BoxCollider2D>();
+        rigidbody.linearVelocity = Vector2.down * waveSpeed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && !isAttacking)
+        {
+            isAttacking = true;
+            LineAttack();
+        }
+    }
+    private void LineAttack()
+    {
+        StartCoroutine(TentacleLineAttack());
+    }
+
+    private IEnumerator TentacleLineAttack()
+    {
+        Vector2 boxSize = new Vector2(attackWidht, attackHeight);
+
+        // **Önce kýrmýzý uyarý efekti verelim**
+        foreach (Transform tentacle in tentacles)
+        {
+            SpriteRenderer sr = tentacle.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                sr.color = Color.red; // **Kýrmýzý uyarý**
+            }
+        }
+
+        yield return new WaitForSeconds(attackDelay); // **Uyarý süresi**
+
+        // **Uyarýyý kaldýr ve saldýrýyý yap**
+        foreach (Transform tentacle in tentacles)
+        {
+            SpriteRenderer sr = tentacle.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                sr.color = Color.black; // **Eski rengine dön**
+            }
+
+            Collider2D[] hitObjects = Physics2D.OverlapBoxAll(tentacle.position, boxSize, 0, playerMask);
+            foreach (Collider2D hitObject in hitObjects)
+            {
+                if (hitObject.CompareTag("Player"))
+                {
+                    Debug.Log("Attacked player");
+                }
+            }
+        }
+        isAttacking = false;
+    }
+
+
 
     public void TentaclePooling(int tentacleCount)
     {
@@ -77,11 +127,7 @@ public class Boss : MonoBehaviour
             spawnedTenctacleCount++;
         }
     }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(tentacle.position, new Vector2(attackWidht, attackHeight));
-    }
+
 
     public List<Vector2> GenerateRandomPositions(int count, float minDistance)
     {

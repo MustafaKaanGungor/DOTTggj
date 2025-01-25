@@ -1476,6 +1476,22 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 922985561908427307, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2541514554591336682, guid: b7fe161b4f260f346bb259bb354277f5, type: 3}
+    - target: {fileID: 922985561908427307, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 922985561908427307, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 922985561908427307, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 922985561908427307, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
@@ -1511,6 +1527,18 @@ PrefabInstance:
       propertyPath: 'projectilePrefabs.Array.data[0]'
       value: 
       objectReference: {fileID: 1274852445012509331, guid: ea1b8c066c50cc74da1258a162f9e82e, type: 3}
+    - target: {fileID: 3910898171199520423, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3910898171199520423, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3910898171199520423, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5624559132504115283, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
       propertyPath: m_Size.x
       value: 3.9736228

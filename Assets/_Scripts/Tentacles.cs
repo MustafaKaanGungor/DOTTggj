@@ -6,6 +6,8 @@ public class Tentacles : MonoBehaviour
 {
     [SerializeField] private GameObject tentacle;
 
+    [SerializeField] private Collider2D tentacleCollider;
+
     [SerializeField] private TentacleType tentacleType;
 
     private readonly float life = 0.5f;
@@ -39,17 +41,20 @@ public class Tentacles : MonoBehaviour
     IEnumerator TentacleBottomUpAttackCoroutine()
     {
         yield return new WaitForSeconds(life);
-        tentacle.SetActive(true);
         isAttacking = true;
+        tentacle.SetActive(true);
+        tentacleCollider.enabled = true;
         yield return new WaitForSeconds(life);
         isAttacking = false;
         tentacle.SetActive(false);
         gameObject.SetActive(false);
+        tentacleCollider.enabled = false;
     }
 
     IEnumerator TentacleRotateAttackCoroutine()
     {
         isAttacking = true;
+        tentacleCollider.enabled = true;
         float duration = life;
         Vector3 startScale = tentacle.transform.localScale;
         Vector3 targetScale = new Vector3(1f, startScale.y, startScale.z);
@@ -60,6 +65,7 @@ public class Tentacles : MonoBehaviour
         {
             tentacle.transform.localScale = Vector3.Lerp(startScale, targetScale, t);
         });
+
 
         yield return new WaitForSeconds(duration);
 
@@ -77,6 +83,7 @@ public class Tentacles : MonoBehaviour
 
         isAttacking = false;
         gameObject.SetActive(false);
+        tentacleCollider.enabled = false;
     }
 
     IEnumerator LerpTransform(float duration, Action<float> updateAction)

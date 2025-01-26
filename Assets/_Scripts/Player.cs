@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public event EventHandler OnPlayerHealthUpdated;
     public event EventHandler OnPlayerDashUpdated;
 
+    [SerializeField] private Animator animator;
+
     [Header("Bubble Air")]
     public float bubbleAirCurrent;
     public float bubbleAirMax = 100;
@@ -78,6 +80,7 @@ public class Player : MonoBehaviour
     {
         Vector2 inputVector = GameInput.Instance.GetMovementVector().normalized;
         playerRb.MovePosition(new Vector2(transform.position.x, transform.position.y) + inputVector * Time.deltaTime * moveSpeed);
+        animator.SetBool("IsWalking", inputVector != Vector2.zero);
     }
 
     public Vector2 GetPlayerPositionVector()

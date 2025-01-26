@@ -198,6 +198,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1597036676202623723, guid: e86a4f63e6920d641bf49ad6ab0c901c, type: 3}
   m_PrefabInstance: {fileID: 26024833}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &72040348 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3764417167289975005, guid: ed8fdc83c040790468b3d76424a5a86f, type: 3}
+  m_PrefabInstance: {fileID: 100174601}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &100014901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -357,9 +362,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7781882961614065547, guid: ed8fdc83c040790468b3d76424a5a86f, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 72040348}
+    - target: {fileID: 7781882961614065547, guid: ed8fdc83c040790468b3d76424a5a86f, type: 3}
       propertyPath: dashEffect
       value: 
       objectReference: {fileID: 26024834}
+    - target: {fileID: 7781882961614065547, guid: ed8fdc83c040790468b3d76424a5a86f, type: 3}
+      propertyPath: bubbleAirMax
+      value: 100000000
+      objectReference: {fileID: 0}
     - target: {fileID: 8206218905254182859, guid: ed8fdc83c040790468b3d76424a5a86f, type: 3}
       propertyPath: m_FillAmount
       value: 1

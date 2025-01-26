@@ -56,7 +56,7 @@ public class Tentacles : MonoBehaviour
     {
         isAttacking = true;
         tentacleCollider.enabled = true;
-        float duration = life * 2f;
+        float duration = life;
         Vector3 startScale = tentacle.transform.localScale;
         Vector3 targetScale = new Vector3(1f, startScale.y, startScale.z);
         Quaternion startRotation = tentacle.transform.rotation;
@@ -85,6 +85,7 @@ public class Tentacles : MonoBehaviour
         isAttacking = false;
         gameObject.SetActive(false);
         tentacleCollider.enabled = false;
+        Boss.Instance.RotateTentacleAttackEnd();
     }
 
     IEnumerator LerpTransform(float duration, Action<float> updateAction)

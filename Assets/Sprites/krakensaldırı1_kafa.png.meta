@@ -103,12 +103,12 @@ TextureImporter:
       name: "krakensald\u0131r\u01311_kafa_0"
       rect:
         serializedVersion: 2
-        x: 247
-        y: 282
-        width: 88
-        height: 130
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 248
+        y: 283
+        width: 86
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 128cf807bca1865479830ca42c842004
     internalID: 0
     vertices: []
     indices: 

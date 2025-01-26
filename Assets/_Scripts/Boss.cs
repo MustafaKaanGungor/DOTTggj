@@ -6,6 +6,10 @@ public class Boss : MonoBehaviour
 {
     public static Boss Instance;
 
+    [SerializeField] private SpriteRenderer bossRenderer;
+    [SerializeField] private Sprite bossIdleSprite;
+    [SerializeField] private Sprite bossRotateAttackSprite;
+
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private Transform[] tentacles;
     [SerializeField] private float attackDelay = 1.5f;
@@ -162,7 +166,7 @@ public class Boss : MonoBehaviour
                 break;
             }
 
-            Vector2 pos = new Vector2(Random.Range(-12, 12), Random.Range(-8, 8));
+            Vector2 pos = new Vector2(Random.Range(-16, 16), Random.Range(-9, 9));
             Vector2 candidate = spawnAreaCollider.ClosestPoint(pos);
 
             if (pos != candidate) continue;
@@ -188,6 +192,7 @@ public class Boss : MonoBehaviour
 
     private void RotateTentacleAttack()
     {
+        bossRenderer.sprite = bossRotateAttackSprite;
         foreach (var item in tentacleLong)
         {
             item.SetActive(true);
@@ -212,4 +217,8 @@ public class Boss : MonoBehaviour
         return isDead;
     }
 
+    public void RotateTentacleAttackEnd()
+    {
+        bossRenderer.sprite = bossIdleSprite;
+    }
 }

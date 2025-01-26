@@ -103,13 +103,13 @@ TextureImporter:
       name: "krakensald\u0131r\u01311_solungac_0"
       rect:
         serializedVersion: 2
-        x: 25
-        y: 87
-        width: 529
-        height: 438
+        x: 26
+        y: 277
+        width: 263
+        height: 52
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 18, y: 13, z: 0, w: 11}
       customData: 
       outline: []
       physicsShape: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e3ceb2de23143e8428433fad6c7bc0e6
     internalID: 0
     vertices: []
     indices: 

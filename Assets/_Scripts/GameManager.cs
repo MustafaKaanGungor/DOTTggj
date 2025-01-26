@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,12 +8,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance {get; private set;}
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private TextMeshProUGUI GameOverText;
     private enum State {
         WaitingToStart,
         GamePlaying,
-        GameOver
+        GameOver,
+        PlayerWin
     }
-
     private State state;
     private float gameStartTimer;
     private float gameStartTimerMax;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     private void Start() {
         //oyunun durması eventleri koy
+
     }
 
     private void Update() {
@@ -38,12 +41,22 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case State.GamePlaying:
-                if(Boss.Instance.IsBossDead() || Player.Instance.IsPlayerDead()) {
+                if(Boss.Instance.IsBossDead()) {
+                    state = State.PlayerWin;
+                    OnStateChanged?.Invoke(this, EventArgs.Empty);
+                }
+                if (Player.Instance.IsPlayerDead())
+                {
                     state = State.GameOver;
                     OnStateChanged?.Invoke(this, EventArgs.Empty);
                 }
                 break;
             case State.GameOver:
+                GameOverText.text = "Game Over";
+                gameOverPanel.SetActive(true);
+                break;
+            case State.PlayerWin:
+                GameOverText.text = "You Win";
                 gameOverPanel.SetActive(true);
                 break;
             default:

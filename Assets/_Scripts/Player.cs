@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-       
+
         dashEffect.SetActive(false);
         bubbleAirCurrent = bubbleAirMax;
         playerCollider = GetComponent<CircleCollider2D>();
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
-        
+
         if (!isDashing && !isDead)
         {
             Movement();
@@ -81,6 +81,15 @@ public class Player : MonoBehaviour
         Vector2 inputVector = GameInput.Instance.GetMovementVector().normalized;
         playerRb.MovePosition(new Vector2(transform.position.x, transform.position.y) + inputVector * Time.deltaTime * moveSpeed);
         animator.SetBool("IsWalking", inputVector != Vector2.zero);
+
+        if (inputVector.x < 0)
+        {
+            animator.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (inputVector.x > 0)
+        {
+            animator.gameObject.transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     public Vector2 GetPlayerPositionVector()
@@ -98,7 +107,7 @@ public class Player : MonoBehaviour
         if (!isDashing)
         {
             OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
-            if(damage >= 2)
+            if (damage >= 2)
             {
                 PlayerUI.Instance.StartCoroutine(PlayerUI.Instance.ShowFlashEffect(PlayerUI.Instance.DamageFlashEffectImage));
             }
@@ -130,7 +139,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    public bool IsPlayerDead() {
+    public bool IsPlayerDead()
+    {
         return isDead;
     }
 

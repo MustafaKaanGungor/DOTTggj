@@ -198,6 +198,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1597036676202623723, guid: e86a4f63e6920d641bf49ad6ab0c901c, type: 3}
   m_PrefabInstance: {fileID: 26024833}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &72040348 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3764417167289975005, guid: ed8fdc83c040790468b3d76424a5a86f, type: 3}
+  m_PrefabInstance: {fileID: 100174601}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &100014901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -289,6 +294,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 295618427}
     - target: {fileID: 4049633737751261578, guid: ed8fdc83c040790468b3d76424a5a86f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049633737751261578, guid: ed8fdc83c040790468b3d76424a5a86f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.83
       objectReference: {fileID: 0}
@@ -357,9 +366,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7781882961614065547, guid: ed8fdc83c040790468b3d76424a5a86f, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 72040348}
+    - target: {fileID: 7781882961614065547, guid: ed8fdc83c040790468b3d76424a5a86f, type: 3}
       propertyPath: dashEffect
       value: 
       objectReference: {fileID: 26024834}
+    - target: {fileID: 7781882961614065547, guid: ed8fdc83c040790468b3d76424a5a86f, type: 3}
+      propertyPath: bubbleAirMax
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8206218905254182859, guid: ed8fdc83c040790468b3d76424a5a86f, type: 3}
       propertyPath: m_FillAmount
       value: 1
@@ -2030,6 +2047,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1506949655}
     - target: {fileID: 2252256875234500534, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
+      propertyPath: bossHealthMax
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252256875234500534, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
       propertyPath: attackInterval
       value: 1.5
       objectReference: {fileID: 0}
@@ -2041,6 +2062,10 @@ PrefabInstance:
       propertyPath: bossRotateAttack
       value: 
       objectReference: {fileID: -8333044845731977683, guid: 57b018c271bb16741a1615232b0eef5b, type: 3}
+    - target: {fileID: 2252256875234500534, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
+      propertyPath: bossHealthCurrent
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 2252256875234500534, guid: 3063b9f2c8aeda94cb95b02dc926fe73, type: 3}
       propertyPath: spawnAreaCollider
       value: 

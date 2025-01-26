@@ -34,11 +34,10 @@ public class MainMenuScript : MonoBehaviour
     {
         profile.TryGet(out brightnessvalue);
 
-        AudioListener.volume = AudioManager.Instance.GetVolume();
+        SetVolume(AudioManager.Instance.GetVolume());
         volumeSlider.onValueChanged.AddListener((volume) =>
         {
-            AudioManager.Instance.ChangeVolume(volume);
-            volumeTextValue.text = Mathf.RoundToInt(volume).ToString();
+            SetVolume(volume);
         });
     }
 
@@ -51,7 +50,14 @@ public class MainMenuScript : MonoBehaviour
     {
         Application.Quit();
     }
-    
+
+    private void SetVolume(float volume)
+    {
+        AudioManager.Instance.ChangeVolume(volume);
+        volumeSlider.value = volume;
+        volumeTextValue.text = volume.ToString("0.##");
+    }
+
     public void Brightness(float brightness)
     {
         profile.TryGet(out brightnessvalue);

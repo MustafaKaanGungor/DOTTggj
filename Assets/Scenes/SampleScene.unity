@@ -1755,7 +1755,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1144932838}
-  - component: {fileID: 1144932837}
   - component: {fileID: 725513455}
   m_Layer: 0
   m_Name: Global Volume
@@ -1764,18 +1763,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1144932837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1144932836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1144932838
 Transform:
   m_ObjectHideFlags: 0
@@ -2960,7 +2947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9114649252851192028, guid: 41f2d6b87af408a4aad3ee35b4e5da34, type: 3}
       propertyPath: spawnDuration
-      value: 0.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9114649252851192028, guid: 41f2d6b87af408a4aad3ee35b4e5da34, type: 3}
       propertyPath: spawnPoints.Array.size
@@ -3013,12 +3000,12 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 1144932838}
   - {fileID: 1268045526}
   - {fileID: 1041739896}
   - {fileID: 2001894843}
   - {fileID: 100174601}
   - {fileID: 1058873332}
-  - {fileID: 1144932838}
   - {fileID: 1952655651}
   - {fileID: 439639683}
   - {fileID: 1364809948534146588}

@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 10;
 
     [SerializeField] private float dashingPower = 200f;
+    [SerializeField] private float dashingDamage = 10f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float effectTime = 0.3f;
     [SerializeField] private float dashingCooldown = 1f;
@@ -57,6 +58,7 @@ public class Player : MonoBehaviour
         if (canDash && !isDead)
         {
             StartCoroutine(Dash());
+            DamageBubbleAir(dashingDamage);
             OnPlayerDashUpdated?.Invoke(new float[] { dashingTime, dashingCooldown }, EventArgs.Empty);
         }
     }
@@ -69,7 +71,6 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
-
         if (!isDashing && !isDead)
         {
             Movement();
@@ -106,13 +107,13 @@ public class Player : MonoBehaviour
     {
         if (!isDashing)
         {
+            bubbleAirCurrent -= damage;
+            bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
             OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
             if (damage >= 2)
             {
                 PlayerUI.Instance.StartCoroutine(PlayerUI.Instance.ShowFlashEffect(PlayerUI.Instance.DamageFlashEffectImage));
             }
-            bubbleAirCurrent -= damage;
-            bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
             if (bubbleAirCurrent <= 0)
             {
                 isDead = true;
@@ -123,10 +124,10 @@ public class Player : MonoBehaviour
 
     public void HealBubbleAir(float healAmount)
     {
-        OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
-        PlayerUI.Instance.StartCoroutine(PlayerUI.Instance.ShowFlashEffect(PlayerUI.Instance.healFlashEffectImage));
         bubbleAirCurrent += healAmount;
         bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
+        OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
+        PlayerUI.Instance.StartCoroutine(PlayerUI.Instance.ShowFlashEffect(PlayerUI.Instance.healFlashEffectImage));
     }
 
     private void DecreaseBubblePerSecond()
@@ -142,11 +143,6 @@ public class Player : MonoBehaviour
     public bool IsPlayerDead()
     {
         return isDead;
-    }
-
-    private void SetPlayerHitBox()
-    {
-        playerCollider.radius = bubbleAirCurrent / 50;
     }
 
     private IEnumerator Dash()

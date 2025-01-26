@@ -132,7 +132,6 @@ public class Boss : MonoBehaviour
             {
                 if (hitObject.CompareTag("Player"))
                 {
-                    Debug.Log("Attacked player");
                     Player.Instance.DamageBubbleAir(tentacleDamage);
                 }
             }
@@ -162,7 +161,6 @@ public class Boss : MonoBehaviour
         {
             if (maxAttempts-- <= 0)
             {
-                Debug.LogError("Maksimum deneme ula��ld�");
                 break;
             }
 

@@ -16,7 +16,7 @@ public class PlayerUI : MonoBehaviour
     private void Start()
     {
         Player.Instance.OnPlayerHealthUpdated += PlayerOnPlayerHealthUpdated;
-        Player.Instance.OnPlayerDashUpdated += PLayerOnPlayerDashUpdated; 
+        Player.Instance.OnPlayerDashUpdated += PLayerOnPlayerDashUpdated;
         healthSlider.fillAmount = 1f;
     }
     private void Awake()
@@ -34,6 +34,7 @@ public class PlayerUI : MonoBehaviour
     {
         healthSlider.fillAmount = Player.Instance.GetBubbleAirPercentage();
     }
+
     public IEnumerator ShowFlashEffect(Image flash)
     {
         if (isFlashingH) yield break; // Eðer zaten çalýþýyorsa çýk

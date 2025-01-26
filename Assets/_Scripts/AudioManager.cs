@@ -9,7 +9,6 @@ public class AudioManager : MonoBehaviour
     private AudioSource audioSource;
     private float volume = 0.2f;
 
-
     void Awake()
     {
         if (Instance == null)

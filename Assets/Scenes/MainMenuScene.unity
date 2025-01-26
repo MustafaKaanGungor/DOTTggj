@@ -712,24 +712,12 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1911574097}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
-  m_Value: 50
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 882811194}
-        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
-        m_MethodName: Volume
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &764022864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1639,10 +1627,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1202006599}
+  - {fileID: 1095139401}
   - {fileID: 1475740135}
   - {fileID: 2124251313}
   - {fileID: 637865208}
-  - {fileID: 1095139401}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3932,10 +3920,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: ad6c42320f79cdd439047a2bc1417ecb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: dafc70d01f73f2048a91136ccdac9c53, type: 3}
+  m_Resource: {fileID: 8300000, guid: dafc70d01f73f2048a91136ccdac9c53, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4046,7 +4034,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e79222efb62f7441ab60cb6180820ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slowedTime: 1
 --- !u!1 &1803141898
 GameObject:
   m_ObjectHideFlags: 0

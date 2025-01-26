@@ -1,20 +1,25 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using System;
-using System.Collections.Generic;
 
-public class AudioManager:MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
-    private Scene currentScene;
-    private Scene MainMenu;
-    [SerializeField] private float slowedTime;
-    
+    public static AudioManager Instance;
+
+    private const string PLAYER_PREFS_VOLUME = "MusicVolume";
+
+    private AudioSource audioSource;
+    private float volume = 0.2f;
+
+
     void Awake()
     {
-        if(instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
+            audioSource = GetComponent<AudioSource>();
+
+            volume = PlayerPrefs.GetFloat(PLAYER_PREFS_VOLUME, volume);
+            audioSource.volume = volume;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -22,16 +27,17 @@ public class AudioManager:MonoBehaviour
         }
     }
 
-    void Update()
+    public void ChangeVolume(float sliderVolume)
     {
-        currentScene = SceneManager.GetActiveScene();
-        MainMenu = SceneManager.GetSceneByBuildIndex(0);
-        if(currentScene == MainMenu)
-        {
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
+        volume = sliderVolume;
+        audioSource.volume = volume;
+
+        PlayerPrefs.SetFloat(PLAYER_PREFS_VOLUME, volume);
+        PlayerPrefs.Save();
+    }
+
+    public float GetVolume()
+    {
+        return volume;
     }
 }

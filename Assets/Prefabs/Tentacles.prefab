@@ -184,7 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3041345646129128749}
   - component: {fileID: 3389619184370702024}
-  - component: {fileID: 3994206605153032909}
+  - component: {fileID: 1949868197039625848}
   m_Layer: 0
   m_Name: Tentacles
   m_TagString: Untagged
@@ -222,10 +222,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tentacle: {fileID: 3431472113748158005}
-  tentacleCollider: {fileID: 3994206605153032909}
+  tentacleCollider: {fileID: 1949868197039625848}
   tentacleType: 0
   damage: 30
---- !u!60 &3994206605153032909
+--- !u!60 &1949868197039625848
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -262,16 +262,25 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 1.048341}
-      - {x: -0.51008445, y: -0.0063106418}
-      - {x: 0.5, y: -0.0063100457}
+    - - {x: 0.8475753, y: 0.17097148}
+      - {x: 0.60291135, y: 0.22404356}
+      - {x: -0.021474361, y: 0.27702928}
+      - {x: -0.60358787, y: 0.22528553}
+      - {x: -0.8320302, y: 0.17520657}
+      - {x: -1.0512704, y: 0.029850155}
+      - {x: -0.934239, y: -0.10734352}
+      - {x: -0.63073397, y: -0.2220509}
+      - {x: -0.014329314, y: -0.27215803}
+      - {x: 0.5519948, y: -0.22205079}
+      - {x: 0.8993713, y: -0.14399055}
+      - {x: 1.0369542, y: 0.037008733}
   m_UseDelaunayMesh: 0

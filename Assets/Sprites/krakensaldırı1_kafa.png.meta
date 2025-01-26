@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fdf9bac349c2a0446bcadd04869a9a20
+guid: 57b018c271bb16741a1615232b0eef5b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5168327254453162710
-    second: McWalk6_0
+      213: -8333044845731977683
+    second: "krakensald\u0131r\u01311_kafa_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,43 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: McWalk6_0
+      name: "krakensald\u0131r\u01311_kafa_0"
       rect:
         serializedVersion: 2
-        x: 3
-        y: 0
-        width: 26
-        height: 32
+        x: 247
+        y: 282
+        width: 88
+        height: 130
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a2d695bbeb96648b0800000000000000
-      internalID: -5168327254453162710
+      spriteID: d26eeb8fcd31b5c80800000000000000
+      internalID: -8333044845731977683
       vertices: []
       indices: 
       edges: []
@@ -161,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      McWalk6_0: -5168327254453162710
+      "krakensald\u0131r\u01311_kafa_0": -8333044845731977683
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

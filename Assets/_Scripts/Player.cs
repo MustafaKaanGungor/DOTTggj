@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
             bubbleAirCurrent -= damage;
             bubbleAirCurrent = Mathf.Clamp(bubbleAirCurrent, 0, bubbleAirMax);
             OnPlayerHealthUpdated?.Invoke(this, EventArgs.Empty);
-            if (damage >= 2)
+            if (damage >= 3)
             {
                 PlayerUI.Instance.StartCoroutine(PlayerUI.Instance.ShowFlashEffect(PlayerUI.Instance.DamageFlashEffectImage));
             }

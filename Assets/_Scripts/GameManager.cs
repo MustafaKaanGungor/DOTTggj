@@ -1,11 +1,12 @@
 using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance {get; private set;} 
-
+    public static GameManager Instance {get; private set;}
+    [SerializeField] private GameObject gameOverPanel;
     private enum State {
         WaitingToStart,
         GamePlaying,
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case State.GameOver:
+                gameOverPanel.SetActive(true);
                 break;
             default:
                 break;
@@ -59,5 +61,15 @@ public class GameManager : MonoBehaviour
 
     public bool IsGameOver() {
         return state == State.GameOver;
+    }
+
+    public void restartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void mainMenu()
+    {
+        SceneManager.LoadScene("MainMenuScene");
     }
 }

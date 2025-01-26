@@ -29,15 +29,15 @@ public class Boss : MonoBehaviour
     [SerializeField] private float spawnDuration;
     private float timeUntilSpawn;
 
-    [SerializeField] private float bossHealthCurrent;
-    [SerializeField] private float bossHealthMax;
+    [SerializeField] public float bossHealthCurrent;
+    [SerializeField] public float bossHealthMax;
 
     private float attackTimer;
     [SerializeField] private float attackInterval;
 
     private bool isDead = false;
 
-
+    
     private void Awake()
     {
         Instance = this;
